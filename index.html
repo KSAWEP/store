@@ -1,0 +1,2341 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Historal Town - الصفحة الرئيسية</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d1810 50%, #1a1a1a 100%);
+            color: #f4f4f4;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), 
+                        url('https://e.top4top.io/p_3515wywe01.gif');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            backdrop-filter: blur(5px);
+            border-bottom: 2px solid #8B4513;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(139, 69, 19, 0.3);
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-size: 24px;
+            font-weight: bold;
+            color: #D2691E;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.8);
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 10px;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-item {
+            background: rgba(0, 0, 0, 0.6);
+            border: 2px solid #8B4513;
+            border-radius: 15px;
+            transition: all 0.3s ease;
+            overflow: hidden;
+            position: relative;
+            backdrop-filter: blur(5px);
+        }
+
+        .nav-item.active {
+            background: rgba(210, 105, 30, 0.3);
+            border-color: #D2691E;
+        }
+
+        .nav-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(210, 105, 30, 0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .nav-item:hover::before {
+            left: 100%;
+        }
+
+        .nav-item:hover {
+            background: rgba(210, 105, 30, 0.3);
+            border-color: #D2691E;
+            transform: translateY(-2px);
+        }
+
+        .nav-link {
+            display: block;
+            padding: 12px 20px;
+            color: #f4f4f4;
+            text-decoration: none;
+            font-weight: 500;
+            position: relative;
+            z-index: 1;
+            cursor: pointer;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+        }
+
+        /* Cart Button */
+        .cart-button {
+            position: relative;
+            background: linear-gradient(45deg, #8B4513, #D2691E);
+            border: none;
+            border-radius: 15px;
+            padding: 12px 20px;
+            color: white;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .cart-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(210, 105, 30, 0.4);
+        }
+
+        .cart-count {
+            background: #FF4444;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: bold;
+            position: absolute;
+            top: -5px;
+            right: -5px;
+        }
+
+        /* Cart Modal */
+        .cart-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .cart-content {
+            background: linear-gradient(145deg, #2a2a2a, #1a1a1a);
+            border: 2px solid #8B4513;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 500px;
+            max-height: 80vh;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .cart-header {
+            background: linear-gradient(45deg, #8B4513, #D2691E);
+            padding: 20px;
+            text-align: center;
+            color: white;
+            font-size: 1.5rem;
+            font-weight: bold;
+            border-radius: 18px 18px 0 0;
+            position: relative;
+        }
+
+        .close-cart {
+            position: absolute;
+            top: 15px;
+            left: 20px;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: background 0.3s;
+        }
+
+        .close-cart:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .cart-items {
+            padding: 20px;
+            min-height: 200px;
+        }
+
+        .cart-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            margin-bottom: 15px;
+            background: rgba(139, 69, 19, 0.1);
+            border: 1px solid #8B4513;
+            border-radius: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .cart-item:hover {
+            background: rgba(210, 105, 30, 0.1);
+            border-color: #D2691E;
+        }
+
+        .cart-item-image {
+            width: 60px;
+            height: 60px;
+            border-radius: 10px;
+            object-fit: cover;
+            border: 2px solid #8B4513;
+        }
+
+        .cart-item-info {
+            flex: 1;
+        }
+
+        .cart-item-name {
+            font-weight: bold;
+            color: #D2691E;
+            margin-bottom: 5px;
+        }
+
+        .cart-item-price {
+            color: #FFD700;
+            font-weight: bold;
+        }
+
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .quantity-btn {
+            background: linear-gradient(45deg, #8B4513, #D2691E);
+            border: none;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .quantity-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .quantity-display {
+            color: #D2691E;
+            font-weight: bold;
+            min-width: 30px;
+            text-align: center;
+        }
+
+        .remove-item {
+            background: #FF4444;
+            border: none;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .remove-item:hover {
+            background: #CC0000;
+            transform: scale(1.05);
+        }
+
+        .cart-total {
+            background: rgba(139, 69, 19, 0.2);
+            padding: 20px;
+            text-align: center;
+            border-top: 2px solid #8B4513;
+        }
+
+        .total-amount {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #FFD700;
+            margin-bottom: 15px;
+        }
+
+        .checkout-section {
+            padding: 20px;
+            background: rgba(139, 69, 19, 0.1);
+            border-top: 1px solid #8B4513;
+        }
+
+        .checkout-title {
+            color: #D2691E;
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .payment-options {
+            margin-bottom: 20px;
+        }
+
+        .payment-option {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .payment-option:hover {
+            background: rgba(210, 105, 30, 0.2);
+        }
+
+        .payment-option input {
+            accent-color: #D2691E;
+        }
+
+        .payment-option label {
+            cursor: pointer;
+            color: #f4f4f4;
+        }
+
+        .account-info {
+            background: rgba(0, 0, 0, 0.4);
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .account-number {
+            color: #FFD700;
+            font-weight: bold;
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+
+        .copy-account-btn {
+            background: linear-gradient(45deg, #8B4513, #D2691E);
+            border: none;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .copy-account-btn:hover {
+            transform: scale(1.05);
+        }
+
+        /* Receipt Upload Section */
+        .receipt-upload-section {
+            margin-bottom: 25px;
+        }
+
+        .upload-title {
+            color: #D2691E;
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .file-upload-area {
+            border: 2px dashed #8B4513;
+            border-radius: 15px;
+            padding: 30px 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: rgba(139, 69, 19, 0.1);
+            margin-bottom: 15px;
+        }
+
+        .file-upload-area:hover {
+            border-color: #D2691E;
+            background: rgba(210, 105, 30, 0.1);
+        }
+
+        .file-upload-area.dragover {
+            border-color: #D2691E;
+            background: rgba(210, 105, 30, 0.2);
+            transform: scale(1.02);
+        }
+
+        .upload-icon {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            color: #D2691E;
+        }
+
+        .upload-text {
+            color: #f4f4f4;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .upload-formats {
+            color: #ccc;
+            font-size: 0.9rem;
+        }
+
+        .uploaded-file {
+            background: rgba(76, 175, 80, 0.2);
+            border: 2px solid #4CAF50;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+
+        .file-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .file-icon {
+            color: #4CAF50;
+            font-size: 1.2rem;
+        }
+
+        .file-name {
+            flex: 1;
+            color: #f4f4f4;
+            font-weight: bold;
+        }
+
+        .remove-file-btn {
+            background: #FF4444;
+            border: none;
+            color: white;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .remove-file-btn:hover {
+            background: #CC0000;
+            transform: scale(1.1);
+        }
+
+        .required-info {
+            background: rgba(139, 69, 19, 0.1);
+            border: 1px solid #8B4513;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .info-title {
+            color: #D2691E;
+            font-weight: bold;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+        }
+
+        .input-group label {
+            display: block;
+            color: #f4f4f4;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .input-group input,
+        .input-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 2px solid #8B4513;
+            border-radius: 8px;
+            color: #f4f4f4;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .input-group input:focus,
+        .input-group textarea:focus {
+            outline: none;
+            border-color: #D2691E;
+            box-shadow: 0 0 10px rgba(210, 105, 30, 0.3);
+        }
+
+        /* Staff Cards */
+        .staff-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        .staff-card {
+            background: linear-gradient(145deg, rgba(139, 69, 19, 0.15), rgba(210, 105, 30, 0.1));
+            border: 2px solid #8B4513;
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(5px);
+        }
+
+        .staff-card::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #8B4513, #D2691E, #8B4513);
+            border-radius: 22px;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .staff-card:hover::before {
+            opacity: 1;
+        }
+
+        .staff-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(210, 105, 30, 0.3);
+        }
+
+        .staff-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            border: 4px solid #D2691E;
+            background: #1a1a1a;
+            object-fit: cover;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .staff-name {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #D2691E;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+        }
+
+        .staff-role {
+            font-size: 1.2rem;
+            color: #FFD700;
+            font-weight: 500;
+            margin-bottom: 15px;
+        }
+
+        .checkout-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .checkout-btn {
+            flex: 1;
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .checkout-btn.primary {
+            background: linear-gradient(45deg, #4CAF50, #45a049);
+            color: white;
+        }
+
+        .checkout-btn.secondary {
+            background: linear-gradient(45deg, #8B4513, #D2691E);
+            color: white;
+        }
+
+        .checkout-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .empty-cart {
+            text-align: center;
+            padding: 40px 20px;
+            color: #ccc;
+        }
+
+        .empty-cart-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            color: #8B4513;
+        }
+
+        /* Main Content */
+        .main {
+            margin-top: 120px;
+            padding: 40px 0;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 80px 0;
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), 
+                        url('https://b.top4top.io/p_35159isgd1.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            border-radius: 20px;
+            margin-bottom: 60px;
+            position: relative;
+            overflow: hidden;
+            border: 3px solid #D2691E;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at center, rgba(210, 105, 30, 0.1) 0%, transparent 70%);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-logo {
+            width: 150px;
+            height: 150px;
+            margin: 0 auto 30px;
+            border-radius: 50%;
+            border: 4px solid #D2691E;
+            background: #1a1a1a;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            color: #D2691E;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.8);
+            font-family: 'Times New Roman', serif;
+            font-weight: bold;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 20px 40px;
+            border-radius: 15px;
+            border: 2px solid #D2691E;
+            display: inline-block;
+        }
+
+        .hero p {
+            font-size: 1.4rem;
+            color: #f4f4f4;
+            max-width: 700px;
+            margin: 0 auto 40px;
+            line-height: 1.8;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+            background: rgba(0, 0, 0, 0.4);
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 18px 40px;
+            background: linear-gradient(45deg, #8B4513, #D2691E);
+            color: white;
+            text-decoration: none;
+            border-radius: 15px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 15px 30px rgba(210, 105, 30, 0.4);
+        }
+
+        .discord-button {
+            display: inline-flex;
+            align-items: center;
+            padding: 15px 35px;
+            background: linear-gradient(45deg, #5865F2, #7289DA);
+            color: white;
+            text-decoration: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 20px rgba(88, 101, 242, 0.3);
+            margin-bottom: 15px;
+        }
+
+        .discord-button:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 12px 25px rgba(88, 101, 242, 0.5);
+            background: linear-gradient(45deg, #4752C4, #5865F2);
+        }
+
+        .discord-nav {
+            background: rgba(88, 101, 242, 0.2) !important;
+            border-color: #5865F2 !important;
+        }
+
+        .discord-nav:hover {
+            background: rgba(88, 101, 242, 0.4) !important;
+            border-color: #7289DA !important;
+        }
+
+        /* Server Status Page Styles */
+        .server-main-status {
+            text-align: center;
+            margin: 40px 0;
+            padding: 30px;
+            background: rgba(139, 69, 19, 0.1);
+            border: 2px solid #8B4513;
+            border-radius: 20px;
+        }
+
+        .status-indicator {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .status-indicator h2 {
+            font-size: 2.5rem;
+            color: #D2691E;
+            margin: 0;
+        }
+
+        .status-indicator.offline h2 {
+            color: #FF6B6B;
+        }
+
+        .status-dot {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #FF6B6B;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .detailed-stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 40px 0;
+        }
+
+        .stat-card {
+            background: rgba(139, 69, 19, 0.1);
+            border: 2px solid #8B4513;
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            background: rgba(210, 105, 30, 0.1);
+            border-color: #D2691E;
+        }
+
+        .stat-card h3 {
+            color: #ccc;
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            font-weight: normal;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #D2691E;
+        }
+
+        .stat-value.gold {
+            color: #FFD700;
+        }
+
+        .connection-info {
+            background: rgba(139, 69, 19, 0.1);
+            border: 2px solid #8B4513;
+            border-radius: 20px;
+            padding: 30px;
+            margin: 40px 0;
+        }
+
+        .connection-info h2 {
+            color: #D2691E;
+            text-align: center;
+            margin-bottom: 25px;
+            font-size: 1.8rem;
+        }
+
+        .connection-details {
+            text-align: center;
+        }
+
+        .connection-label {
+            color: #ccc;
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .connection-link {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .connection-link input {
+            flex: 1;
+            padding: 12px 15px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 2px solid #8B4513;
+            border-radius: 8px;
+            color: #FFD700;
+            font-size: 1rem;
+            text-align: center;
+        }
+
+        .copy-btn {
+            padding: 12px 20px;
+            background: linear-gradient(45deg, #8B4513, #D2691E);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .copy-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(210, 105, 30, 0.4);
+        }
+
+        /* Hero for other pages */
+        .hero-with-banner {
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), 
+                        url('https://b.top4top.io/p_35159isgd1.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        /* Sections Grid */
+        .sections-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .section-card {
+            background: linear-gradient(145deg, rgba(139, 69, 19, 0.1), rgba(210, 105, 30, 0.1));
+            border: 2px solid #8B4513;
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            backdrop-filter: blur(5px);
+        }
+
+        .section-card::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #8B4513, #D2691E, #8B4513);
+            border-radius: 22px;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .section-card:hover::before {
+            opacity: 1;
+        }
+
+        .section-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(210, 105, 30, 0.3);
+        }
+
+        .section-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            color: #D2691E;
+            filter: drop-shadow(0 5px 10px rgba(0, 0, 0, 0.3));
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #D2691E;
+        }
+
+        .section-description {
+            color: #ccc;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+
+        .section-button {
+            padding: 12px 25px;
+            background: linear-gradient(45deg, #8B4513, #D2691E);
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            display: inline-block;
+            border: none;
+            cursor: pointer;
+        }
+
+        .section-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(210, 105, 30, 0.4);
+        }
+
+        /* Car Images */
+        .car-image {
+            width: 100%;
+            height: 300px;
+            object-fit: contain;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            border: 2px solid #8B4513;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 10px;
+        }
+
+        /* Server Stats */
+        .stats-section {
+            background: rgba(139, 69, 19, 0.1);
+            border: 2px solid #8B4513;
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 60px;
+            text-align: center;
+        }
+
+        .stats-title {
+            font-size: 2.5rem;
+            color: #D2691E;
+            margin-bottom: 30px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+        }
+
+        .stat-item {
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            border: 1px solid #8B4513;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #FFD700;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            color: #ccc;
+            font-size: 1.1rem;
+        }
+
+        /* Features */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 60px;
+        }
+
+        .feature-card {
+            background: rgba(139, 69, 19, 0.1);
+            border: 2px solid #8B4513;
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            background: rgba(210, 105, 30, 0.1);
+            border-color: #D2691E;
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: #D2691E;
+        }
+
+        .feature-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #D2691E;
+        }
+
+        .feature-description {
+            color: #ccc;
+            line-height: 1.6;
+        }
+
+        /* Footer */
+        .footer {
+            background: rgba(0, 0, 0, 0.8);
+            border-top: 2px solid #8B4513;
+            padding: 40px 0;
+            text-align: center;
+            margin-top: 80px;
+        }
+
+        .footer-content {
+            color: #ccc;
+        }
+
+        .footer h3 {
+            color: #D2691E;
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .nav-menu {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+
+            .hero p {
+                font-size: 1.2rem;
+            }
+
+            .main {
+                margin-top: 160px;
+            }
+
+            .hero-logo {
+                width: 120px;
+                height: 120px;
+            }
+
+            .cart-content {
+                width: 95%;
+                margin: 10px;
+            }
+        }
+
+        /* Page Transition */
+        .page-content {
+            opacity: 0;
+            animation: fadeIn 0.6s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Notification */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(45deg, #4CAF50, #45a049);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            z-index: 3000;
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+    </style>
+</head>
+<body>
+
+<a href="https://www.tiktok.com/@1h_t11?_t=ZS-8yx2XX7wvcm&_r=1" target="_blank" style="position:absolute; top:20px; left:20px; text-decoration:none;">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/TikTok_logo_black.svg" alt="TikTok" style="width:40px; height:40px;">
+</a>
+
+    <header class="header">
+        <div class="container">
+            <nav class="nav">
+                <div class="logo">
+                    <span>Historal Town</span>
+                </div>
+                <ul class="nav-menu">
+                    <li class="nav-item active"><a href="#" class="nav-link" onclick="showPage('home')">الرئيسية</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link" onclick="showPage('cars')">السيارات</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link" onclick="showPage('workshops')">الورش</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link" onclick="showPage('restaurants')">المطاعم</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link" onclick="showPage('server-status')">حالة السيرفر</a></li>
+                    <li class="nav-item discord-nav">
+                        <a href="https://discord.gg/tDgQVZ9HU5" target="_blank" class="nav-link">
+                            <img src="https://images-eds-ssl.xboxlive.com/image?url=4rt9.lXDC4H_93laV1_eHHFT949fUipzkiFOBH3fAiZZUCdYojwUyX2aTonS1aIwMrx6NUIsHfUHSLzjGJFxxsG72wAo9EWJR4yQWyJJaDaK1XdUso6cUMpI9hAdPUU_FNs11cY1X284vsHrnWtRw7oqRpN1m9YAg21d_aNKnIo-&format=source&h=210" 
+                                 alt="Discord" 
+                                 style="width: 25px; height: 25px; vertical-align: middle;">
+                        </a>
+                    </li>
+                    <li>
+                        <button class="cart-button" onclick="toggleCart()">
+                            🛒 سلة الشراء
+                            <span class="cart-count" id="cart-count">0</span>
+                        </button>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Cart Modal -->
+    <div id="cart-modal" class="cart-modal">
+        <div class="cart-content">
+            <div class="cart-header">
+                <button class="close-cart" onclick="toggleCart()">×</button>
+                <div>سلة الشراء</div>
+            </div>
+            
+            <div class="cart-items" id="cart-items">
+                <div class="empty-cart">
+                    <div class="empty-cart-icon">🛒</div>
+                    <h3>سلة التسوق فارغة</h3>
+                    <p>لم تقم بإضافة أي عناصر بعد</p>
+                </div>
+            </div>
+            
+            <div class="cart-total" id="cart-total-section" style="display: none;">
+                <div class="total-amount" id="total-amount">المجموع: 0 ريال</div>
+            </div>
+            
+            <div class="checkout-section" id="checkout-section" style="display: none;">
+                <div class="checkout-title">تعليمات الدفع</div>
+                
+                <div class="payment-options">
+                    <div class="payment-option">
+                        <input type="radio" id="bank-transfer" name="payment" value="bank" checked>
+                        <label for="bank-transfer">تحويل بنكي - الراجحي</label>
+                    </div>
+                    <div class="payment-option">
+                        <input type="radio" id="stc-pay" name="payment" value="stc">
+                        <label for="stc-pay">دفع STC Pay</label>
+                    </div>
+                    <div class="payment-option">
+                        <input type="radio" id="urpay" name="payment" value="urpay">
+                        <label for="urpay">دفع URPay</label>
+                    </div>
+                    <div class="payment-option">
+                        <input type="radio" id="paypal" name="payment" value="paypal">
+                        <label for="paypal">دفع PayPal</label>
+                    </div>
+                </div>
+                
+                <div class="account-info">
+                    <div>رقم الإيبان للتحويل البنكي</div>
+                    <div class="account-number" id="account-display">SA06 8000 0144 6080 1616 3013</div>
+                    <button class="copy-account-btn" onclick="copyAccountNumber()">نسخ الإيبان</button>
+                </div>
+                
+                <div class="receipt-upload-section">
+                    <div class="upload-title">رفع إيصال الدفع</div>
+                    
+                    <div class="file-upload-area" id="file-upload-area">
+                        <div class="upload-icon">📄</div>
+                        <div class="upload-text">اسحب الإيصال هنا أو انقر للرفع</div>
+                        <input type="file" id="receipt-file" accept="image/*,.pdf" style="display: none;">
+                        <div class="upload-formats">يدعم: JPG, PNG, PDF</div>
+                    </div>
+                    
+                    <div class="uploaded-file" id="uploaded-file" style="display: none;">
+                        <div class="file-info">
+                            <span class="file-icon">✅</span>
+                            <span class="file-name" id="file-name"></span>
+                            <button class="remove-file-btn" onclick="removeFile()">×</button>
+                        </div>
+                    </div>
+                    
+                    <div class="required-info">
+                        <div class="info-title">معلومات مطلوبة:</div>
+                        
+                        <div class="input-group">
+                            <label for="character-name">اسم الشخصية داخل اللعبة:</label>
+                            <input type="text" id="character-name" placeholder="أدخل اسم الشخصية">
+                        </div>
+                        
+                        <div class="input-group">
+                            <label for="discord-name">اسمك في الديسكورد:</label>
+                            <input type="text" id="discord-name" placeholder="أدخل اسمك في الديسكورد">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="checkout-buttons">
+                    <button class="checkout-btn primary" onclick="completeOrder()">إتمام الطلب</button>
+                    <button class="checkout-btn secondary" onclick="toggleCart()">متابعة التسوق</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification -->
+    <div id="notification" class="notification"></div>
+
+    <div id="page-content">
+        <!-- الصفحة الرئيسية -->
+        <div id="home-page" class="page-content">
+            <main class="main">
+                <div class="container">
+                    <section class="hero">
+                        <div class="hero-content">
+                            <img src="https://a.top4top.io/p_3515ogrjl1.gif" 
+                                 alt="Historal Town Logo" 
+                                 class="hero-logo">
+                            <p>🔹 مدينة كاملة تنتظرك: شغل، عصابات، شرطة، تجارة، سباقات، سرقات، تحقيقات، وحتى تقدر تبني سمعتك وتعيش حياتك بطريقتك! 🔹 تقدر تختار طريقك: تصير مجرم مطلوب، أو تاجر ناجح، أو ضابط يحافظ على الأمن، أو حتى مواطن عايشها فله.</p>
+                            <a href="#sections" class="cta-button">استكشف السيرفر</a>
+                        </div>
+                    </section>
+
+                    <section id="sections" class="sections-grid">
+                        <!-- لا توجد أقسام -->
+                    </section>
+
+                    <!-- فريق الإدارة -->
+                    <section class="stats-section">
+                        <h2 class="stats-title">فريق إدارة Historal Town</h2>
+                        <div class="staff-grid">
+                            <!-- Owner -->
+                            <div class="staff-card">
+                                <img src="https://b.top4top.io/p_351590ckj1.gif" alt="Abdullah" class="staff-avatar">
+                                <h3 class="staff-name">Abdullah</h3>
+                                <p class="staff-role">Owner</p>
+                            </div>
+
+                            <!-- Founders -->
+                            <div class="staff-card">
+                                <img src="https://b.top4top.io/p_351590ckj1.gif" alt="DINGER" class="staff-avatar">
+                                <h3 class="staff-name">DINGER</h3>
+                                <p class="staff-role">Founder</p>
+                            </div>
+
+                            <!-- CEOs -->
+                            <div class="staff-card">
+                                <img src="https://b.top4top.io/p_351590ckj1.gif" alt="Txw" class="staff-avatar">
+                                <h3 class="staff-name">Txw</h3>
+                                <p class="staff-role">CEO</p>
+                            </div>
+
+                            <div class="staff-card">
+                                <img src="https://b.top4top.io/p_351590ckj1.gif" alt="! Azoz" class="staff-avatar">
+                                <h3 class="staff-name">! Azoz</h3>
+                                <p class="staff-role">CEO</p>
+                            </div>
+
+                            <!-- Dev Director -->
+                            <div class="staff-card">
+                                <img src="https://b.top4top.io/p_351590ckj1.gif" alt="Abu Al3z" class="staff-avatar">
+                                <h3 class="staff-name">Abu Al3z</h3>
+                                <p class="staff-role">Dev Director</p>
+                            </div>
+
+                            <!-- Discord Developer -->
+                            <div class="staff-card">
+                                <img src="https://b.top4top.io/p_351590ckj1.gif" alt="Abdulaziz" class="staff-avatar">
+                                <h3 class="staff-name">Abdulaziz</h3>
+                                <p class="staff-role">Discord Developer</p>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="stats-section">
+                        <h2 class="stats-title">إحصائيات السيرفر</h2>
+                        <div class="stats-grid">
+                            <div class="stat-item">
+                                <div class="stat-number">16</div>
+                                <div class="stat-label">صانع محتوى</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-number">500+</div>
+                                <div class="stat-label">عضو</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-number">20</div>
+                                <div class="stat-label">إداري</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-number">98%</div>
+                                <div class="stat-label">وقت التشغيل</div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </main>
+        </div>
+
+        <!-- صفحة السيارات -->
+        <div id="cars-page" class="page-content" style="display: none;">
+            <main class="main">
+                <div class="container">
+                    <section class="hero hero-with-banner">
+                        <div class="hero-content">
+                            <h1>🏎️ السيارات</h1>
+                            <p>مجموعة حصرية من أفخم السيارات للبيع</p>
+                        </div>
+                    </section>
+                    
+                    <div class="sections-grid">
+                        <div class="section-card">
+                            <img src="https://c.top4top.io/p_3515ab6101.png" alt="Mustang" class="car-image">
+                            <h3 class="section-title">Mustang</h3>
+                            <p class="section-description">سيارة فاخرة بتصميم أنيق ومواصفات عالية الجودة للرحلات المميزة</p>
+                            <div style="color: #FFD700; font-size: 1.5rem; margin: 15px 0;">120 ريال</div>
+                            <button class="section-button" onclick="addToCart('Mustang', 120, 'https://c.top4top.io/p_3515ab6101.png', 'cars')">إضافة للسلة</button>
+                        </div>
+
+                        <div class="section-card">
+                            <img src="https://h.top4top.io/p_3515oyz791.png" alt="DODGE CHALLENGER" class="car-image">
+                            <h3 class="section-title">DODGE CHALLENGER</h3>
+                            <p class="section-description">سيارة رياضية أمريكية كلاسيكية بمحرك قوي وتصميم عضلي مميز</p>
+                            <div style="color: #FFD700; font-size: 1.5rem; margin: 15px 0;">95 ريال</div>
+                            <button class="section-button" onclick="addToCart('DODGE CHALLENGER', 95, 'https://h.top4top.io/p_3515oyz791.png', 'cars')">إضافة للسلة</button>
+                        </div>
+
+                        <div class="section-card">
+                            <img src="https://i.top4top.io/p_35159yyq41.png" alt="G-WAGON" class="car-image">
+                            <h3 class="section-title">G-WAGON</h3>
+                            <p class="section-description">سيارة دفع رباعي فاخرة بتصميم قوي وأداء استثنائي للطرق الوعرة والمدينة</p>
+                            <div style="color: #FFD700; font-size: 1.5rem; margin: 15px 0;">110 ريال</div>
+                            <button class="section-button" onclick="addToCart('G-WAGON', 110, 'https://i.top4top.io/p_35159yyq41.png', 'cars')">إضافة للسلة</button>
+                        </div>
+
+                        <div class="section-card">
+                            <img src="https://f.top4top.io/p_35156xra41.png" alt="Mitsubishi" class="car-image">
+                            <h3 class="section-title">Mitsubishi</h3>
+                            <p class="section-description">سيارة رياضية عالية الأداء بتصميم ديناميكي وسرعة استثنائية</p>
+                            <div style="color: #FFD700; font-size: 1.5rem; margin: 15px 0;">150 ريال</div>
+                            <button class="section-button" onclick="addToCart('Mitsubishi', 150, 'https://f.top4top.io/p_35156xra41.png', 'cars')">إضافة للسلة</button>
+                        </div>
+
+                        <div class="section-card">
+                            <img src="https://j.top4top.io/p_351593u8p1.png" alt="تغيير لوحة سيارة" class="car-image">
+                            <h3 class="section-title">تغيير لوحة سيارة</h3>
+                            <p class="section-description">خدمة تغيير لوحة السيارة مع مميزات إضافية وتصميم مخصص حسب الطلب</p>
+                            <div style="color: #FFD700; font-size: 1.5rem; margin: 15px 0;">65 ريال</div>
+                            <button class="section-button" onclick="addToCart('تغيير لوحة سيارة', 65, 'https://j.top4top.io/p_351593u8p1.png', 'cars')">إضافة للسلة</button>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+
+        <!-- صفحة الورش -->
+        <div id="workshops-page" class="page-content" style="display: none;">
+            <main class="main">
+                <div class="container">
+                    <section class="hero hero-with-banner">
+                        <div class="hero-content">
+                            <h1>🔧 الورش</h1>
+                            <p>أفضل ورش صيانة وتطوير السيارات في المدينة التاريخية</p>
+                        </div>
+                    </section>
+                    
+                    <div class="sections-grid">
+                        <div class="section-card">
+                            <img src="https://j.top4top.io/p_3515239az1.png" alt="CAR ZONE" class="car-image">
+                            <h3 class="section-title">CAR ZONE</h3>
+                            <p class="section-description">ورشة متخصصة في صيانة وتطوير جميع أنواع السيارات بأحدث التقنيات والمعدات</p>
+                            <div style="color: #FFD700; font-size: 1.5rem; margin: 15px 0;">200 ريال</div>
+                            <div style="color: #FF4444; font-weight: bold; font-size: 1.2rem; margin: 10px 0; padding: 10px; background: rgba(255,68,68,0.1); border-radius: 8px; border: 1px solid #FF4444;">نفذة الكمية</div>
+                        </div>
+
+                        <div class="section-card">
+                            <img src="https://j.top4top.io/p_3515239az1.png" alt="Big Tuna" class="car-image">
+                            <h3 class="section-title">Big Tuna</h3>
+                            <p class="section-description">ورشة احترافية لإصلاح وتحسين أداء السيارات مع ضمان الجودة والسرعة في الإنجاز</p>
+                            <div style="color: #FFD700; font-size: 1.5rem; margin: 15px 0;">180 ريال</div>
+                            <div style="color: #FF4444; font-weight: bold; font-size: 1.2rem; margin: 10px 0; padding: 10px; background: rgba(255,68,68,0.1); border-radius: 8px; border: 1px solid #FF4444;">نفذة الكمية</div>
+                        </div>
+
+                        <div class="section-card">
+                            <img src="https://j.top4top.io/p_3515239az1.png" alt="Hayes Autos" class="car-image">
+                            <h3 class="section-title">Hayes Autos</h3>
+                            <p class="section-description">خبرة عريقة في عالم السيارات مع فريق من أمهر الفنيين لضمان أفضل خدمة صيانة</p>
+                            <div style="color: #FFD700; font-size: 1.5rem; margin: 15px 0;">220 ريال</div>
+                            <div style="color: #FF4444; font-weight: bold; font-size: 1.2rem; margin: 10px 0; padding: 10px; background: rgba(255,68,68,0.1); border-radius: 8px; border: 1px solid #FF4444;">نفذة الكمية</div>
+                        </div>
+
+                        <div class="section-card">
+                            <img src="https://j.top4top.io/p_3515239az1.png" alt="Itto Autos" class="car-image">
+                            <h3 class="section-title">Itto Autos</h3>
+                            <p class="section-description">ورشة حديثة متخصصة في السيارات اليابانية والأوروبية بمعايير عالمية للجودة</p>
+                            <div style="color: #FFD700; font-size: 1.5rem; margin: 15px 0;">190 ريال</div>
+                            <div style="color: #FF4444; font-weight: bold; font-size: 1.2rem; margin: 10px 0; padding: 10px; background: rgba(255,68,68,0.1); border-radius: 8px; border: 1px solid #FF4444;">نفذة الكمية</div>
+                        </div>
+
+                        <div class="section-card">
+                            <img src="https://j.top4top.io/p_3515239az1.png" alt="Strokemaster" class="car-image">
+                            <h3 class="section-title">Strokemaster</h3>
+                            <p class="section-description">ورشة متخصصة في تطوير وتحسين أداء المحركات مع خدمات التيونيغ المتقدمة</p>
+                            <div style="color: #FFD700; font-size: 1.5rem; margin: 15px 0;">250 ريال</div>
+                            <div style="color: #FF4444; font-weight: bold; font-size: 1.2rem; margin: 10px 0; padding: 10px; background: rgba(255,68,68,0.1); border-radius: 8px; border: 1px solid #FF4444;">نفذة الكمية</div>
+                        </div>
+
+                        <!-- بطاقة خدمات إضافية -->
+                        <div class="section-card">
+                            <div class="section-icon">🛠️</div>
+                            <h3 class="section-title">خدمات إضافية</h3>
+                            <p class="section-description">
+                                • تقدر توضف<br>
+                                • تقدر تعدل<br>
+                            </p>
+                            <div style="color: #FFD700; font-size: 1.2rem; margin: 15px 0;">حسب نوع الخدمة</div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+        <div id="restaurants-page" class="page-content" style="display: none;">
+            <main class="main">
+                <div class="container">
+                    <section class="hero hero-with-banner">
+                        <div class="hero-content">
+                            <h1>🍽️ المطاعم</h1>
+                            <p>استمتع بأفضل المطاعم والمقاهي في المدينة التاريخية</p>
+                        </div>
+                    </section>
+                    
+                    <div class="sections-grid">
+                        <div class="section-card">
+                            <img src="https://a.top4top.io/p_35150q1ij1.png" alt="SeaFood" class="car-image">
+                            <h3 class="section-title">SeaFood</h3>
+                            <p class="section-description">مطعم المأكولات البحرية الطازجة والأسماك المشوية والمقلية</p>
+                            <div style="color: #FFD700; font-size: 1.5rem; margin: 15px 0;">150 ريال</div>
+                            <div style="color: #FF4444; font-weight: bold; font-size: 1.2rem; margin: 10px 0; padding: 10px; background: rgba(255,68,68,0.1); border-radius: 8px; border: 1px solid #FF4444;">نفذة الكمية</div>
+                        </div>
+
+                        <div class="section-card">
+                            <img src="https://a.top4top.io/p_35150q1ij1.png" alt="Pizzeria" class="car-image">
+                            <h3 class="section-title">Pizzeria</h3>
+                            <p class="section-description">أشهى أنواع البيتزا الإيطالية الأصيلة بجميع الأحجام والطعمات</p>
+                            <div style="color: #FFD700; font-size: 1.5rem; margin: 15px 0;">89 ريال</div>
+                            <div style="color: #FF4444; font-weight: bold; font-size: 1.2rem; margin: 10px 0; padding: 10px; background: rgba(255,68,68,0.1); border-radius: 8px; border: 1px solid #FF4444;">نفذة الكمية</div>
+                        </div>
+
+                        <div class="section-card">
+                            <img src="https://a.top4top.io/p_35150q1ij1.png" alt="Burgershot" class="car-image">
+                            <h3 class="section-title">Burgershot</h3>
+                            <p class="section-description">برجر طازج ولذيذ مع البطاطس المقلية والمشروبات الباردة</p>
+                            <div style="color: #FFD700; font-size: 1.5rem; margin: 15px 0;">79 ريال</div>
+                            <div style="color: #FF4444; font-weight: bold; font-size: 1.2rem; margin: 10px 0; padding: 10px; background: rgba(255,68,68,0.1); border-radius: 8px; border: 1px solid #FF4444;">نفذة الكمية</div>
+                        </div>
+
+                        <div class="section-card">
+                            <img src="https://a.top4top.io/p_35150q1ij1.png" alt="Atoms" class="car-image">
+                            <h3 class="section-title">Atoms</h3>
+                            <p class="section-description">مطعم الوجبات السريعة والمشروبات المنعشة للجميع</p>
+                            <div style="color: #FFD700; font-size: 1.5rem; margin: 15px 0;">65 ريال</div>
+                            <div style="color: #FF4444; font-weight: bold; font-size: 1.2rem; margin: 10px 0; padding: 10px; background: rgba(255,68,68,0.1); border-radius: 8px; border: 1px solid #FF4444;">نفذة الكمية</div>
+                        </div>
+
+                        <div class="section-card">
+                            <img src="https://a.top4top.io/p_35150q1ij1.png" alt="Hornys" class="car-image">
+                            <h3 class="section-title">Hornys</h3>
+                            <p class="section-description">مقهى ومطعم للإفطار والعشاء مع أجواء مميزة ومريحة</p>
+                            <div style="color: #FFD700; font-size: 1.5rem; margin: 15px 0;">95 ريال</div>
+                            <div style="color: #FF4444; font-weight: bold; font-size: 1.2rem; margin: 10px 0; padding: 10px; background: rgba(255,68,68,0.1); border-radius: 8px; border: 1px solid #FF4444;">نفذة الكمية</div>
+                        </div>
+
+                        <div class="section-card">
+                            <img src="https://a.top4top.io/p_35150q1ij1.png" alt="sunbuns" class="car-image">
+                            <h3 class="section-title">sunbuns</h3>
+                            <p class="section-description">محل الخبز الطازج والحلويات الشهية والكيك المتنوع</p>
+                            <div style="color: #FFD700; font-size: 1.5rem; margin: 15px 0;">59.99 ريال</div>
+                            <button class="section-button" onclick="addToCart('sunbuns', 59.99, 'https://a.top4top.io/p_35150q1ij1.png', 'restaurants')">إضافة للسلة</button>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+
+        <!-- صفحة فريق الإدارة -->
+        <div id="staff-page" class="page-content" style="display: none;">
+            <main class="main">
+                <div class="container">
+                    <section class="hero hero-with-banner">
+                        <div class="hero-content">
+                            <h1>👥 فريق إدارة Historal Town</h1>
+                            <p>تعرف على الفريق المتميز الذي يقود مجتمعنا نحو التميز</p>
+                        </div>
+                    </section>
+                    
+                    <div class="staff-grid">
+                        <!-- Owner -->
+                        <div class="staff-card">
+                            <img src="https://b.top4top.io/p_351590ckj1.gif" alt="Abdullah" class="staff-avatar">
+                            <h3 class="staff-name">Abdullah</h3>
+                            <p class="staff-role">Owner</p>
+                        </div>
+
+                        <!-- Founders -->
+                        <div class="staff-card">
+                            <img src="https://b.top4top.io/p_351590ckj1.gif" alt="DINGER" class="staff-avatar">
+                            <h3 class="staff-name">DINGER</h3>
+                            <p class="staff-role">Founder</p>
+                        </div>
+
+                        <!-- CEOs -->
+                        <div class="staff-card">
+                            <img src="https://b.top4top.io/p_351590ckj1.gif" alt="Txw" class="staff-avatar">
+                            <h3 class="staff-name">Txw</h3>
+                            <p class="staff-role">CEO</p>
+                        </div>
+
+                        <div class="staff-card">
+                            <img src="https://b.top4top.io/p_351590ckj1.gif" alt="! Azoz" class="staff-avatar">
+                            <h3 class="staff-name">! Azoz</h3>
+                            <p class="staff-role">CEO</p>
+                        </div>
+
+                        <!-- Dev Director -->
+                        <div class="staff-card">
+                            <img src="https://b.top4top.io/p_351590ckj1.gif" alt="Abu Al3z" class="staff-avatar">
+                            <h3 class="staff-name">Abu Al3z</h3>
+                            <p class="staff-role">Dev Director</p>
+                        </div>
+
+                        <!-- Discord Developer -->
+                        <div class="staff-card">
+                            <img src="https://b.top4top.io/p_351590ckj1.gif" alt="Abdulaziz" class="staff-avatar">
+                            <h3 class="staff-name">Abdulaziz</h3>
+                            <p class="staff-role">Discord Developer</p>
+                        </div>
+                    </div>
+
+                    <!-- قسم معلومات إضافية -->
+                    <section class="features">
+                        <div class="feature-card">
+                            <div class="feature-icon">👑</div>
+                            <div class="feature-title">قيادة متمرسة</div>
+                            <div class="feature-description">فريق إداري بخبرة واسعة في إدارة المجتمعات والخوادم</div>
+                        </div>
+
+                        <div class="feature-card">
+                            <div class="feature-icon">🛡️</div>
+                            <div class="feature-title">حماية وأمان</div>
+                            <div class="feature-description">ضمان بيئة آمنة وممتعة لجميع اللاعبين</div>
+                        </div>
+
+                        <div class="feature-card">
+                            <div class="feature-icon">🚀</div>
+                            <div class="feature-title">تطوير مستمر</div>
+                            <div class="feature-description">العمل المستمر على تحسين وتطوير تجربة اللعب</div>
+                        </div>
+
+                        <div class="feature-card">
+                            <div class="feature-icon">💬</div>
+                            <div class="feature-title">تواصل فعال</div>
+                            <div class="feature-description">استجابة سريعة لجميع استفسارات ومقترحات المجتمع</div>
+                        </div>
+                    </section>
+                </div>
+            </main>
+        </div>
+        <div id="server-status-page" class="page-content" style="display: none;">
+            <main class="main">
+                <div class="container">
+                    <section class="hero hero-with-banner">
+                        <div class="hero-content">
+                            <h1>📊 حالة السيرفر</h1>
+                            <p>تابع الإحصائيات المباشرة لسيرفر Historal Town</p>
+                        </div>
+                    </section>
+                    
+                    <!-- حالة السيرفر الرئيسية -->
+                    <div class="server-main-status">
+                        <div class="status-indicator offline">
+                            <span class="status-dot"></span>
+                            <h2>غير متاح</h2>
+                        </div>
+                    </div>
+
+                    <!-- إحصائيات مفصلة -->
+                    <div class="detailed-stats-grid">
+                        <div class="stat-card">
+                            <h3>اللاعبين المتصلين:</h3>
+                            <div class="stat-value">غير متاح</div>
+                        </div>
+
+                        <div class="stat-card">
+                            <h3>الحد الأقصى:</h3>
+                            <div class="stat-value gold">128</div>
+                        </div>
+
+                        <div class="stat-card">
+                            <h3>حالة الاتصال:</h3>
+                            <div class="stat-value">لا يمكن الاتصال</div>
+                        </div>
+
+                        <div class="stat-card">
+                            <h3>آخر تحديث:</h3>
+                            <div class="stat-value gold">1:0:21 ص</div>
+                        </div>
+                    </div>
+
+                    <!-- معلومات الاتصال -->
+                    <div class="connection-info">
+                        <h2>معلومات الاتصال</h2>
+                        <div class="connection-details">
+                            <span class="connection-label">رابط الدخول:</span>
+                            <div class="connection-link">
+                                <input type="text" value="cfx.re/join/mldkja" readonly onclick="this.select()">
+                                <button onclick="copyToClipboard('cfx.re/join/mldkja')" class="copy-btn">نسخ</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- زر الانضمام -->
+                    <div style="text-align: center; margin-top: 40px;">
+                        <a href="cfx.re/join/mldkja" target="_blank" class="cta-button">انضم للسيرفر</a>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <h3>Historal Town</h3>
+                <p>اعش التاريخ، اصنع المستقبل</p>
+                <p>جميع الحقوق محفوظة © 2025</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- EmailJS SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script>
+        // Initialize EmailJS
+        emailjs.init("6FAD-qxNbC23yb0Wj");
+    </script>
+
+    <script>
+        // EmailJS Configuration
+        const emailjsConfig = {
+            serviceID: 'service_7m6nrbt',
+            templateID: 'template_gviaona',
+            publicKey: '6FAD-qxNbC23yb0Wj'
+        };
+
+        // إرسال تفاصيل الطلب عبر EmailJS مع نظام احتياطي
+        function sendOrderEmail(orderData) {
+            // التحقق من تحميل EmailJS
+            if (typeof emailjs === 'undefined') {
+                throw new Error('EmailJS غير محمل بشكل صحيح');
+            }
+
+            const templateParams = {
+                to_name: 'فريق Historal Town',
+                from_name: orderData.characterName,
+                discord_name: orderData.discordName,
+                order_items: orderData.orderSummary,
+                total_amount: orderData.totalAmount,
+                payment_method: orderData.paymentMethod,
+                account_number: orderData.accountNumber,
+                order_date: new Date().toLocaleString('ar-SA'),
+                message: `طلب جديد من ${orderData.characterName}:\n\n${orderData.orderSummary}\n\nالمجموع: ${orderData.totalAmount} ريال\n\nطريقة الدفع: ${orderData.paymentMethod}\nالحساب: ${orderData.accountNumber}\n\nبيانات العميل:\nاسم الشخصية: ${orderData.characterName}\nاسم الديسكورد: ${orderData.discordName}\n\nتم رفع الإيصال: نعم`
+            };
+
+            console.log('محاولة إرسال البيانات:', templateParams);
+
+            return emailjs.send(
+                emailjsConfig.serviceID,
+                emailjsConfig.templateID,
+                templateParams,
+                emailjsConfig.publicKey
+            );
+        }
+
+        // نظام احتياطي للإرسال
+        function sendOrderToDiscord(orderData) {
+            // إنشاء رابط ديسكورد مع البيانات
+            const discordMessage = encodeURIComponent(
+                `🛒 **طلب جديد - Historal Town**\n\n` +
+                `👤 **العميل:** ${orderData.characterName}\n` +
+                `💬 **ديسكورد:** ${orderData.discordName}\n` +
+                `💰 **المجموع:** ${orderData.totalAmount} ريال\n` +
+                `💳 **الدفع:** ${orderData.paymentMethod}\n\n` +
+                `📦 **الطلب:**\n${orderData.orderSummary}`
+            );
+            
+            return `https://discord.com/channels/@me?message=${discordMessage}`;
+        }
+
+        // إدارة التنقل بين الصفحات
+        function showPage(pageId) {
+            // إخفاء جميع الصفحات
+            const pages = ['home', 'cars', 'workshops', 'restaurants', 'server-status'];
+            pages.forEach(page => {
+                const element = document.getElementById(page + '-page');
+                if (element) {
+                    element.style.display = 'none';
+                }
+            });
+
+            // إظهار الصفحة المطلوبة
+            const targetPage = document.getElementById(pageId + '-page');
+            if (targetPage) {
+                targetPage.style.display = 'block';
+                targetPage.scrollIntoView({ behavior: 'smooth' });
+            }
+
+            // تحديث القائمة النشطة
+            const navItems = document.querySelectorAll('.nav-item');
+            navItems.forEach(item => item.classList.remove('active'));
+            
+            // العثور على العنصر المناسب وتفعيله
+            const activeNavItem = [...navItems].find(item => {
+                const link = item.querySelector('.nav-link');
+                return link && link.onclick && link.onclick.toString().includes(pageId);
+            });
+            
+            if (activeNavItem) {
+                activeNavItem.classList.add('active');
+            }
+        }
+
+        // Cart functionality
+        let cart = [];
+        let totalAmount = 0;
+
+        // Account numbers for different payment methods
+        const paymentAccounts = {
+            bank: 'SA06 8000 0144 6080 1616 3013',
+            stc: 'SA06 8000 0144 6080 1616 3013',
+            urpay: 'SA06 8000 0144 6080 1616 3013',
+            paypal: 'SA06 8000 0144 6080 1616 3013'
+        };
+
+        // وظيفة نسخ الرابط
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(function() {
+                showNotification('تم نسخ الرابط بنجاح!');
+            }).catch(function() {
+                // Fallback for older browsers
+                const textArea = document.createElement('textarea');
+                textArea.value = text;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                showNotification('تم نسخ الرابط بنجاح!');
+            });
+        }
+
+        // إضافة عنصر للسلة
+        function addToCart(name, price, image, category) {
+            // التحقق من وجود العنصر في السلة
+            const existingItem = cart.find(item => item.name === name);
+            
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({
+                    name: name,
+                    price: price,
+                    image: image,
+                    category: category,
+                    quantity: 1
+                });
+            }
+            
+            updateCartDisplay();
+            showNotification(`تم إضافة ${name} للسلة!`);
+        }
+
+        // إزالة عنصر من السلة
+        function removeFromCart(name) {
+            cart = cart.filter(item => item.name !== name);
+            updateCartDisplay();
+            showNotification(`تم إزالة العنصر من السلة`);
+        }
+
+        // تحديث كمية العنصر
+        function updateQuantity(name, change) {
+            const item = cart.find(item => item.name === name);
+            if (item) {
+                item.quantity += change;
+                if (item.quantity <= 0) {
+                    removeFromCart(name);
+                } else {
+                    updateCartDisplay();
+                }
+            }
+        }
+
+        // تحديث عرض السلة
+        function updateCartDisplay() {
+            const cartCount = document.getElementById('cart-count');
+            const cartItems = document.getElementById('cart-items');
+            const cartTotalSection = document.getElementById('cart-total-section');
+            const checkoutSection = document.getElementById('checkout-section');
+            const totalAmountEl = document.getElementById('total-amount');
+
+            // تحديث عدد العناصر
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            cartCount.textContent = totalItems;
+            cartCount.style.display = totalItems > 0 ? 'flex' : 'none';
+
+            // تحديث محتوى السلة
+            if (cart.length === 0) {
+                cartItems.innerHTML = `
+                    <div class="empty-cart">
+                        <div class="empty-cart-icon">🛒</div>
+                        <h3>سلة التسوق فارغة</h3>
+                        <p>لم تقم بإضافة أي عناصر بعد</p>
+                    </div>
+                `;
+                cartTotalSection.style.display = 'none';
+                checkoutSection.style.display = 'none';
+            } else {
+                cartItems.innerHTML = cart.map(item => `
+                    <div class="cart-item">
+                        <img src="${item.image}" alt="${item.name}" class="cart-item-image">
+                        <div class="cart-item-info">
+                            <div class="cart-item-name">${item.name}</div>
+                            <div class="cart-item-price">${item.price} ريال</div>
+                            <div class="quantity-controls">
+                                <button class="quantity-btn" onclick="updateQuantity('${item.name}', -1)">-</button>
+                                <span class="quantity-display">${item.quantity}</span>
+                                <button class="quantity-btn" onclick="updateQuantity('${item.name}', 1)">+</button>
+                            </div>
+                        </div>
+                        <button class="remove-item" onclick="removeFromCart('${item.name}')">حذف</button>
+                    </div>
+                `).join('');
+
+                // حساب المجموع
+                totalAmount = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+                totalAmountEl.textContent = `المجموع: ${totalAmount.toFixed(2)} ريال`;
+                
+                cartTotalSection.style.display = 'block';
+                checkoutSection.style.display = 'block';
+            }
+        }
+
+        // فتح/إغلاق السلة
+        function toggleCart() {
+            const cartModal = document.getElementById('cart-modal');
+            cartModal.style.display = cartModal.style.display === 'flex' ? 'none' : 'flex';
+        }
+
+        // نسخ رقم الحساب
+        function copyAccountNumber() {
+            const selectedPayment = document.querySelector('input[name="payment"]:checked').value;
+            const accountNumber = paymentAccounts[selectedPayment];
+            
+            navigator.clipboard.writeText(accountNumber).then(function() {
+                showNotification('تم نسخ رقم الحساب!');
+            }).catch(function() {
+                showNotification('فشل في نسخ رقم الحساب');
+            });
+        }
+
+        // إتمام الطلب مع EmailJS فقط
+        function completeOrder() {
+            if (cart.length === 0) {
+                showNotification('السلة فارغة!');
+                return;
+            }
+
+            // التحقق من رفع الإيصال
+            const uploadedFile = document.getElementById('uploaded-file');
+            if (uploadedFile.style.display === 'none') {
+                showNotification('يرجى رفع إيصال الدفع أولاً!');
+                return;
+            }
+
+            // التحقق من البيانات المطلوبة
+            const characterName = document.getElementById('character-name').value.trim();
+            const discordName = document.getElementById('discord-name').value.trim();
+
+            if (!characterName || !discordName) {
+                showNotification('يرجى ملء جميع البيانات المطلوبة!');
+                return;
+            }
+
+            const orderSummary = cart.map(item => 
+                `${item.name} (${item.quantity}x) - ${(item.price * item.quantity).toFixed(2)} ريال`
+            ).join('\n');
+
+            const selectedPayment = document.querySelector('input[name="payment"]:checked').value;
+            const accountNumber = paymentAccounts[selectedPayment];
+
+            // عرض رسالة تحميل
+            showNotification('جاري إرسال الطلب عبر EmailJS...');
+
+            // بيانات الطلب المبسطة لـ EmailJS
+            const templateParams = {
+                to_name: 'فريق Historal Town',
+                from_name: characterName,
+                discord_name: discordName,
+                order_items: orderSummary,
+                total_amount: totalAmount.toFixed(2),
+                payment_method: selectedPayment,
+                account_number: accountNumber,
+                order_date: new Date().toLocaleString('ar-SA')
+            };
+
+            console.log('البيانات المُرسلة لـ EmailJS:');
+            console.log('- to_name:', templateParams.to_name);
+            console.log('- from_name:', templateParams.from_name);
+            console.log('- discord_name:', templateParams.discord_name);
+            console.log('- order_items:', templateParams.order_items);
+            console.log('- total_amount:', templateParams.total_amount);
+            console.log('- payment_method:', templateParams.payment_method);
+            console.log('- account_number:', templateParams.account_number);
+            console.log('- order_date:', templateParams.order_date);
+            
+            console.log('إعدادات EmailJS:');
+            console.log('- serviceID:', emailjsConfig.serviceID);
+            console.log('- templateID:', emailjsConfig.templateID);
+            console.log('- publicKey:', emailjsConfig.publicKey);
+            
+            console.log('تحقق من تحميل EmailJS:', typeof emailjs !== 'undefined' ? 'محمل بنجاح ✅' : 'غير محمل ❌');
+
+            // إرسال مباشر عبر EmailJS
+            emailjs.send(
+                emailjsConfig.serviceID,
+                emailjsConfig.templateID,
+                templateParams,
+                emailjsConfig.publicKey
+            )
+            .then(function(response) {
+                console.log('✅ نجح الإرسال!', response.status, response.text);
+                
+                let successMessage = `✅ تم إرسال طلبك بنجاح!\n\n📋 تفاصيل الطلب:\n${orderSummary}\n\n💰 المجموع: ${totalAmount.toFixed(2)} ريال\n💳 طريقة الدفع: ${selectedPayment}\n🏦 رقم الحساب: ${accountNumber}\n\n👤 بيانات العميل:\n• اسم الشخصية: ${characterName}\n• اسم الديسكورد: ${discordName}\n\n📧 تم إرسال الطلب للإدارة بنجاح!\n⏰ سيتم التواصل معك خلال 24 ساعة.`;
+
+                alert(successMessage);
+                showNotification('تم إرسال الطلب بنجاح عبر EmailJS! ✅');
+                
+                // إفراغ السلة والنموذج
+                cart = [];
+                updateCartDisplay();
+                clearOrderForm();
+                toggleCart();
+            })
+            .catch(function(error) {
+                console.error('❌ فشل الإرسال:', error);
+                console.error('Status:', error.status);
+                console.error('Text:', error.text);
+                
+                let troubleshootingMessage = `❌ فشل في إرسال الطلب عبر EmailJS\n\n🔍 تفاصيل الخطأ:\n`;
+                
+                if (error.status === 0) {
+                    troubleshootingMessage += `• مشكلة في الاتصال\n• تحقق من إعدادات EmailJS\n• تأكد من تفعيل CORS`;
+                } else if (error.status === 400) {
+                    troubleshootingMessage += `• خطأ في Template\n• تحقق من المتغيرات المطلوبة`;
+                } else if (error.status === 401) {
+                    troubleshootingMessage += `• خطأ في المصادقة\n• تحقق من Public Key`;
+                } else if (error.status === 404) {
+                    troubleshootingMessage += `• Template أو Service غير موجود\n• تحقق من الـ IDs`;
+                } else {
+                    troubleshootingMessage += `• خطأ غير معروف: ${error.text || 'لا توجد تفاصيل'}`;
+                }
+                
+                troubleshootingMessage += `\n\n📋 تفاصيل طلبك:\n${orderSummary}\n\n💰 المجموع: ${totalAmount.toFixed(2)} ريال\n👤 العميل: ${characterName}\n💬 ديسكورد: ${discordName}\n\n🔧 يرجى مراجعة إعدادات EmailJS وإعادة المحاولة.`;
+                
+                alert(troubleshootingMessage);
+                showNotification('فشل الإرسال - يرجى مراجعة إعدادات EmailJS');
+            });
+        }
+
+        // مسح النموذج
+        function clearOrderForm() {
+            document.getElementById('character-name').value = '';
+            document.getElementById('discord-name').value = '';
+            removeFile();
+        }
+
+        // وظائف رفع الملف
+        let uploadedFileData = null;
+
+        function setupFileUpload() {
+            const fileUploadArea = document.getElementById('file-upload-area');
+            const fileInput = document.getElementById('receipt-file');
+
+            // Click to upload
+            fileUploadArea.addEventListener('click', () => {
+                fileInput.click();
+            });
+
+            // Drag and drop
+            fileUploadArea.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                fileUploadArea.classList.add('dragover');
+            });
+
+            fileUploadArea.addEventListener('dragleave', (e) => {
+                e.preventDefault();
+                fileUploadArea.classList.remove('dragover');
+            });
+
+            fileUploadArea.addEventListener('drop', (e) => {
+                e.preventDefault();
+                fileUploadArea.classList.remove('dragover');
+                const files = e.dataTransfer.files;
+                if (files.length > 0) {
+                    handleFileUpload(files[0]);
+                }
+            });
+
+            // File input change
+            fileInput.addEventListener('change', (e) => {
+                if (e.target.files.length > 0) {
+                    handleFileUpload(e.target.files[0]);
+                }
+            });
+        }
+
+        function handleFileUpload(file) {
+            // التحقق من نوع الملف
+            const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'application/pdf'];
+            if (!allowedTypes.includes(file.type)) {
+                showNotification('نوع الملف غير مدعوم. يرجى رفع JPG, PNG أو PDF');
+                return;
+            }
+
+            // التحقق من حجم الملف (5MB max)
+            if (file.size > 5 * 1024 * 1024) {
+                showNotification('حجم الملف كبير جداً. الحد الأقصى 5MB');
+                return;
+            }
+
+            uploadedFileData = file;
+            
+            // عرض الملف المرفوع
+            document.getElementById('file-upload-area').style.display = 'none';
+            document.getElementById('uploaded-file').style.display = 'block';
+            document.getElementById('file-name').textContent = file.name;
+            
+            showNotification('تم رفع الإيصال بنجاح!');
+        }
+
+        function removeFile() {
+            uploadedFileData = null;
+            document.getElementById('file-upload-area').style.display = 'block';
+            document.getElementById('uploaded-file').style.display = 'none';
+            document.getElementById('receipt-file').value = '';
+        }
+
+        // عرض الإشعارات
+        function showNotification(message) {
+            const notification = document.getElementById('notification');
+            notification.textContent = message;
+            notification.classList.add('show');
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+
+        // تحديث رقم الحساب حسب طريقة الدفع المختارة
+        document.addEventListener('change', function(e) {
+            if (e.target.name === 'payment') {
+                const accountDisplay = document.getElementById('account-display');
+                accountDisplay.textContent = paymentAccounts[e.target.value];
+            }
+        });
+
+        // إغلاق السلة عند النقر خارجها
+        document.addEventListener('click', function(e) {
+            const cartModal = document.getElementById('cart-modal');
+            const cartButton = document.querySelector('.cart-button');
+            
+            if (e.target === cartModal) {
+                toggleCart();
+            }
+        });
+
+        // تحديث الإحصائيات المباشرة
+        function updateStats() {
+            const playerCount = Math.floor(Math.random() * 50) + 200;
+            const ping = Math.floor(Math.random() * 20) + 10;
+            
+            const statNumbers = document.querySelectorAll('.stat-number');
+            if (statNumbers[1]) statNumbers[1].textContent = playerCount + '/300';
+            if (statNumbers[2]) statNumbers[2].textContent = ping + 'ms';
+        }
+
+        // تحديث الإحصائيات كل 30 ثانية
+        setInterval(updateStats, 30000);
+
+        // تأثيرات بصرية إضافية
+        document.addEventListener('DOMContentLoaded', function() {
+            // تأثير التمرير للقوائم
+            const cards = document.querySelectorAll('.section-card');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.animationDelay = '0s';
+                        entry.target.style.animation = 'fadeInUp 0.6s ease forwards';
+                    }
+                });
+            });
+
+            cards.forEach(card => {
+                observer.observe(card);
+            });
+
+            // تحميل السلة من التخزين المحلي
+            const savedCart = localStorage.getItem('historalTownCart');
+            if (savedCart) {
+                cart = JSON.parse(savedCart);
+                updateCartDisplay();
+            }
+
+            // إعداد رفع الملفات
+            setupFileUpload();
+        });
+
+        // حفظ السلة في التخزين المحلي
+        function saveCart() {
+            localStorage.setItem('historalTownCart', JSON.stringify(cart));
+        }
+
+        // تحديث وظيفة إضافة للسلة لحفظ البيانات
+        function addToCart(name, price, image, category) {
+            // التحقق من وجود العنصر في السلة
+            const existingItem = cart.find(item => item.name === name);
+            
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({
+                    name: name,
+                    price: price,
+                    image: image,
+                    category: category,
+                    quantity: 1
+                });
+            }
+            
+            updateCartDisplay();
+            saveCart();
+            showNotification(`تم إضافة ${name} للسلة!`);
+        }
+
+        // تحديث وظيفة إزالة من السلة
+        function removeFromCart(name) {
+            cart = cart.filter(item => item.name !== name);
+            updateCartDisplay();
+            saveCart();
+            showNotification(`تم إزالة العنصر من السلة`);
+        }
+
+        // تحديث وظيفة تغيير الكمية
+        function updateQuantity(name, change) {
+            const item = cart.find(item => item.name === name);
+            if (item) {
+                item.quantity += change;
+                if (item.quantity <= 0) {
+                    removeFromCart(name);
+                } else {
+                    updateCartDisplay();
+                    saveCart();
+                }
+            }
+        }
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]:not([href="#"])').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // إضافة تأثيرات صوتية (اختيارية)
+        function playClickSound() {
+            // يمكن إضافة تأثير صوتي هنا إذا أردت
+        }
+
+        // تحسين تجربة المستخدم على الموبايل
+        if (window.innerWidth <= 768) {
+            // تحسينات خاصة بالموبايل
+            document.querySelector('.cart-content').style.width = '98%';
+            document.querySelector('.cart-content').style.margin = '5px';
+        }
+    </script>
+
+<script>
+function sendOrder() {
+    const fileInput = document.getElementById("receipt").files[0];
+    if (!fileInput) {
+        alert("الرجاء رفع صورة الإيصال قبل الإرسال");
+        return;
+    }
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        const base64Image = e.target.result;
+
+        const orderData = {
+            characterName: document.getElementById("characterName")?.value || "غير محدد",
+            discordName: document.getElementById("discordName")?.value || "غير محدد",
+            orderSummary: document.getElementById("orderSummary")?.value || "منتج تجريبي",
+            totalAmount: document.getElementById("totalAmount")?.value || "0",
+            paymentMethod: document.getElementById("paymentMethod")?.value || "غير محدد",
+            accountNumber: document.getElementById("accountNumber")?.value || "غير محدد"
+        };
+
+        const templateParams = {
+            from_name: orderData.characterName,
+            discord_name: orderData.discordName,
+            order_items: orderData.orderSummary,
+            total_amount: orderData.totalAmount,
+            payment_method: orderData.paymentMethod,
+            account_number: orderData.accountNumber,
+            order_date: new Date().toLocaleString('ar-SA'),
+            receipt_status: "✅ تم الرفع",
+            receipt_filename: fileInput.name,
+            receipt_image: base64Image
+        };
+
+        emailjs.send("service_9rnvqfb", "template_8sv99cq", templateParams, "6FAD-qxNbC23yb0Wj")
+            .then(() => alert("✅ تم إرسال الطلب مع صورة الإيصال"))
+            .catch(err => alert("❌ خطأ: " + err));
+    };
+    reader.readAsDataURL(fileInput);
+}
+</script>
+
+</body>
+</html>
